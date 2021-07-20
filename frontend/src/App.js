@@ -1,4 +1,4 @@
-
+import axios from 'axios'
 const subscriptionPlans = [
   {
     _id: '1',
@@ -17,8 +17,14 @@ const subscriptionPlans = [
   }
 ]
 
-const backendWillProcess = (selectedPlanDetails) => {
-  console.log({ selectedPlanDetails })
+const backendWillProcess = async (selectedPlanDetails) => {
+  try {
+    const response = await axios.post('http://localhost:5000/pay', { 'planDetails': selectedPlanDetails })
+    console.log({ response })
+  } catch (err) {
+    console.log(err)
+  }
+
 }
 
 
