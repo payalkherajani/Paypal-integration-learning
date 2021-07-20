@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useState } from 'react'
 import Paypal from './components/Paypal'
 const subscriptionPlans = [
   {
@@ -30,29 +31,40 @@ const backendWillProcess = async (selectedPlanDetails) => {
 
 
 function App() {
+
+  const [show, setShow] = useState(false)
+  const [details, setDetails] = useState({})
+
+  const showPaypalButton = (planDetails) => {
+    setShow(true)
+    setDetails(planDetails)
+  }
+
+
   return (
-    <div className="App">
-      <table>
-        <thead>
-          <tr>
-            <th>Plan</th>
-            <th>Amount</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            subscriptionPlans.map((aPlan) => {
-              return <tr key={aPlan._id}>
-                <td>{aPlan.plan_name}</td>
-                <td>$ {aPlan.plan_amount}</td>
-                <td><Paypal /></td>
-              </tr>
-            })
-          }
-        </tbody>
-      </table>
-    </div>
+    show === true ? (<Paypal plan={details} />) : (
+      <div className="App">
+        <table>
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              subscriptionPlans.map((aPlan) => {
+                return <tr key={aPlan._id}>
+                  <td>{aPlan.plan_name}</td>
+                  <td>$ {aPlan.plan_amount}</td>
+                  <td><button onClick={() => showPaypalButton(aPlan)}>Buy?</button></td>
+                </tr>
+              })
+            }
+          </tbody>
+        </table>
+      </div>)
   );
 }
 
