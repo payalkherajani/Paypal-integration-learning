@@ -1,19 +1,20 @@
 import axios from 'axios'
+import Paypal from './components/Paypal'
 const subscriptionPlans = [
   {
     _id: '1',
     plan_name: 'Basic',
-    plan_amount: '$1'
+    plan_amount: '1.00'
   },
   {
     _id: '2',
     plan_name: 'Standard',
-    plan_amount: '$2'
+    plan_amount: '2.00'
   },
   {
     _id: '3',
     plan_name: 'Premium',
-    plan_amount: '$3'
+    plan_amount: '3.00'
   }
 ]
 
@@ -44,8 +45,8 @@ function App() {
             subscriptionPlans.map((aPlan) => {
               return <tr key={aPlan._id}>
                 <td>{aPlan.plan_name}</td>
-                <td>{aPlan.plan_amount}</td>
-                <td><button onClick={() => backendWillProcess(aPlan)}>Buy</button></td>
+                <td>$ {aPlan.plan_amount}</td>
+                <td><Paypal /></td>
               </tr>
             })
           }
